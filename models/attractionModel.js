@@ -34,10 +34,7 @@ const attractionSchema = new Schema({
     rating: {
         type: String,
         required: true
-    },
-    likes: {
-        type: Number
     }
-}, { timestamps: true });
+}, { likes: 0, timestamps: true });
 
 module.exports = mongoose.model('Attraction', attractionSchema);
