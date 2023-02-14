@@ -34,6 +34,10 @@ const attractionSchema = new Schema({
     rating: {
         type: String,
         required: true
+    },
+    likes: {
+        type: Number,
+        required: true
     }
 }, { likes: 0, timestamps: true });
 
