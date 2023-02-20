@@ -1,6 +1,13 @@
 const Attraction = require("../models/attractionModel");
 const mongoose = require('mongoose');
 
+// get all attractions
+const getAttractions = async (req, res) => {
+    const attractions = await Attraction.find({}).sort({ createdAt: -1});
+
+    res.status(200).json(attractions);
+}
+
 // get all places
 const getPlaces = async (req, res) => {
     const places = await Attraction.find({type: "place"}).sort({createdAt: -1});
@@ -15,42 +22,25 @@ const getActivities = async (req, res) => {
     res.status(200).json(activities);
 }
 
-// get a single place
-const getPlace = async (req, res) => {
+// get a single attraction
+const getAttraction = async (req, res) => {
     const { id } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({error: 'No Such Attraction'});
     }
 
-    const place = await Attraction.findById(id);
+    const attraction = await Attraction.findById(id);
     
-    if(!place) {
+    if(!attraction) {
         return res.status(404).json({error: 'No Such Attraction'});
     }
 
     res.status(200).json(place);
 }
 
-// get a single activity
-const getActivity = async (req, res) => {
-    const { id } = req.params;
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({error: 'No Such Attraction'});
-    }
-
-    const activity = await Attraction.findById(id);
-    
-    if(!activity) {
-        return res.status(404).json({error: 'No such Attraction'});
-    }
-
-    res.status(200).json(activity);
-}
-
-// create new place
-const createPlace = async (req, res) => {
+// create new attraction
+const createAttraction = async (req, res) => {
     const { title, image, hours, description, type, address, venue, rating, likes } = req.body;
     try {
         const attraction = await Attraction.create({ title, image, hours, description, type, address, venue, rating, likes });
@@ -60,98 +50,49 @@ const createPlace = async (req, res) => {
     }
 }
 
-// create new activity
-const createActivity = async (req, res) => {
-    const { title, image, hours, description, type, address, venue, rating, likes } = req.body;
-    try {
-        const attraction = await Attraction.create({ title, image, hours, description, type, address, venue, rating, likes });
-        res.status(200).json({attraction});
-    } catch (error) {
-        res.status(400).json({ error: error.message });
-    }
-}
-
-// delete a place
-const deletePlace = async (req, res) => {
+// delete an attraction
+const deleteAttraction = async (req, res) => {
     const { id } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({error: 'No Such Attraction'});
     }
 
-    const place = await Attraction.findOneAndDelete({_id: id});
+    const attraction = await Attraction.findOneAndDelete({_id: id});
 
-    if (!place) {
+    if (!attraction) {
+        return res.status(404).json({error: 'No such Attraction'});
+    }
+
+    res.status(200).json(attraction);
+}
+
+// update an attraction
+const updateAttraction = async (req, res) => {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({error: 'No Such Attraction'});
+    }
+
+    const attraction = await Attraction.findOneAndUpdate({ _id: id }, {
+        ...req.body
+    });
+
+    if (!attraction) {
         return res.status(404).json({error: 'No such Attraction'});
     }
 
     res.status(200).json(place);
 }
 
-// delete an activity
-const deleteActivity = async (req, res) => {
-    const { id } = req.params;
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({error: 'No Such Attraction'});
-    }
-
-    const activity = await Attraction.findOneAndDelete({_id: id});
-
-    if (!activity) {
-        return res.status(404).json({error: 'No such Attraction'});
-    }
-
-    res.status(200).json(activity);
-}
-
-// update a place
-const updatePlace = async (req, res) => {
-    const { id } = req.params;
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({error: 'No Such Attraction'});
-    }
-
-    const place = await Attraction.findOneAndUpdate({ _id: id }, {
-        ...req.body
-    });
-
-    if (!place) {
-        return res.status(404).json({error: 'No such Attraction'});
-    }
-
-    res.status(200).json(place);
-}
-
-// update an activity
-const updateActivity = async (req, res) => {
-    const { id } = req.params;
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({error: 'No Such Attraction'});
-    }
-
-    const activity = await Attraction.findOneAndUpdate({ _id: id }, {
-        ...req.body
-    });
-
-    if (!activity) {
-        return res.status(404).json({error: 'No such Attraction'});
-    }
-
-    res.status(200).json(activity);
-}
 
 module.exports = {
-    createPlace,
-    createActivity,
+    createAttraction,
+    getAttractions,
     getPlaces,
     getActivities,
-    getPlace,
-    getActivity,
-    deletePlace,
-    deleteActivity,
-    updatePlace,
-    updateActivity
+    getAttraction,
+    deleteAttraction,
+    updateAttraction
 }

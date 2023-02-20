@@ -1,12 +1,30 @@
 const express = require('express');
-const { getPlaces } = require('../controllers/attractionController');
+const Attraction = require('../models/attractionModel');
+const { 
+    getAttractions,
+    createAttraction,
+    getActivities,
+    getPlaces,
+    getAttraction,
+    deleteAttraction,
+    updateAttraction } = require('../controllers/attractionController');
 
 const pagesRouter = express.Router();
 
-// GET the home page
-pagesRouter.get('/', (req, res) => {
-    res.json({mssg: 'GET the home page'});
-});
+// GET all attractions to go
+pagesRouter.get('/', getAttractions);
+
+// GET a single activity to go
+pagesRouter.get('/:id', getAttraction);
+
+// POST a new activity to try
+pagesRouter.post('/', createAttraction);
+
+// DELETE an activity
+pagesRouter.delete('/:id', deleteAttraction);
+
+// UPDATE an activity
+pagesRouter.patch('/:id', updateAttraction);
 
 // GET the about page
 pagesRouter.get('/About', (req, res) => {
