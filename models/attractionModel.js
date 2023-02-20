@@ -38,6 +38,10 @@ const attractionSchema = new Schema({
     likes: {
         type: Number,
         required: true
+    },
+    userName: {
+        type: String,
+        required: true
     }
 }, { likes: 0, timestamps: true });
 

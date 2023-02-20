@@ -43,7 +43,7 @@ const getAttraction = async (req, res) => {
 const createAttraction = async (req, res) => {
     const { title, image, hours, description, type, address, venue, rating, likes } = req.body;
     try {
-        const attraction = await Attraction.create({ title, image, hours, description, type, address, venue, rating, likes });
+        const attraction = await Attraction.create({ title, image, hours, description, type, address, venue, rating, likes, userName });
         res.status(200).json({attraction});
     } catch (error) {
         res.status(400).json({ error: error.message });

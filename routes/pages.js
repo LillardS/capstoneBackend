@@ -3,8 +3,6 @@ const Attraction = require('../models/attractionModel');
 const { 
     getAttractions,
     createAttraction,
-    getActivities,
-    getPlaces,
     getAttraction,
     deleteAttraction,
     updateAttraction } = require('../controllers/attractionController');
