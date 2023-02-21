@@ -43,6 +43,6 @@ const attractionSchema = new Schema({
         type: String,
         required: true
     }
-}, { likes: 0, timestamps: true });
+}, { userName: '', likes: 0, timestamps: true });
 
 module.exports = mongoose.model('Attraction', attractionSchema);
