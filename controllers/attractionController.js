@@ -71,7 +71,9 @@ const createAttraction = async (req, res) => {
         emptyFields.push('rating');
     }
 
-    // if the emptyFields array is greater than zero, send an error back saying which fields are needed\
+    console.log(emptyFields);
+
+    // if the emptyFields array is greater than zero, send an error back saying which fields are needed
     if(emptyFields.length > 0) {
         return res.status(400).json({error: 'Please fill in all the fields', emptyFields })
     }

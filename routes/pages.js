@@ -12,17 +12,17 @@ const pagesRouter = express.Router();
 // GET all attractions to go
 pagesRouter.get('/', getAttractions);
 
-// GET a single activity to go
-pagesRouter.get('/:id', getAttraction);
+// UPDATE an activity
+pagesRouter.patch('/:id', updateAttraction);
 
 // POST a new activity to try
 pagesRouter.post('/', createAttraction);
 
+// GET a single activity to go
+pagesRouter.get('/:id', getAttraction);
+
 // DELETE an activity
 pagesRouter.delete('/:id', deleteAttraction);
-
-// UPDATE an activity
-pagesRouter.patch('/:id', updateAttraction);
 
 // GET the about page
 pagesRouter.get('/About', (req, res) => {
