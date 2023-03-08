@@ -1,6 +1,6 @@
 // requires
 require('dotenv').config();
-// const cors = require('cors');
+const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose');
 const pagesRoutes = require('./routes/pages');
@@ -11,6 +11,7 @@ const app = express();
 
 // middleware
 app.use(express.json());
+app.use(cors())
 
 // logs where the request is being made to and what type of request
 app.use((req, res, next) => {
@@ -24,11 +25,6 @@ app.use('/Activities', pagesRoutes);
 app.use('/Home', pagesRoutes);
 app.use('/user', userRoutes);
 
-// app.use(
-//     cors({
-//       origin: ['http://localhost:3000']
-//     })
-//   )
 
 
 // connect to db
