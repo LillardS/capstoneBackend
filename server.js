@@ -1,5 +1,6 @@
 // requires
 require('dotenv').config();
+const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose');
 const pagesRoutes = require('./routes/pages');
@@ -22,6 +23,12 @@ app.use('/Places', pagesRoutes);
 app.use('/Activities', pagesRoutes);
 app.use('/Home', pagesRoutes);
 app.use('/user', userRoutes);
+
+app.use(
+    cors({
+      origin: ['http://localhost:3000']
+    })
+  )
 
 
 // connect to db
