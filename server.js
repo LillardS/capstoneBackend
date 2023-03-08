@@ -11,7 +11,12 @@ const app = express();
 
 // middleware
 app.use(express.json());
-app.use(cors())
+app.use(cors());
+
+// allows the backend and frontend to connect
+app.get('/', (req, res) => {
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+});
 
 // logs where the request is being made to and what type of request
 app.use((req, res, next) => {
